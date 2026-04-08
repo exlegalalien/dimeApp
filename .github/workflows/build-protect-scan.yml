@@ -1,0 +1,54 @@
+name: iOS Build and Export
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    # macOS is required to run xcodebuild
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Install Certificates
+        # You will need to add your P12 certificate and provisioning profile to GitHub Secrets
+        uses: apple-actions/import-codesign-certs@v3
+        with:
+          p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
+          p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
+
+      - name: Install Provisioning Profiles
+        uses: apple-actions/download-provisioning-profiles@v3
+        with:
+          bundle-id: 'com.im.dime' # Your main bundle ID
+          profile-type: 'release-testing'
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
+          api-key-content: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+
+      - name: Build Archive
+        run: |
+          xcodebuild -project dime.xcodeproj \
+                     -scheme dime \
+                     -configuration Release \
+                     -archivePath ./build/dime.xcarchive \
+                     archive
+
+      - name: Export IPA
+        run: |
+          xcodebuild -exportArchive \
+                     -archivePath ./build/dime.xcarchive \
+                     -exportPath ./build/DimeApp \
+                     -exportOptionsPlist ExportOptions.plist \
+                     -allowProvisioningUpdates
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-ipa
+          path: build/DimeApp/*.ipa
