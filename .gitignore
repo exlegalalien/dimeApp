@@ -7,3 +7,6 @@ xcuserdata/
 
 ## MacOS
 .DS_Store
+
+# Build Folder
+app/build/

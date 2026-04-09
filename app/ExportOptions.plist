@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>method</key>
+    <string>release-testing</string>
+    <key>teamID</key>
+    <string>32L6T5JYH4</string>
+    <key>uploadBitcode</key>
+    <false/>
+    <key>uploadSymbols</key>
+    <true/>
+    <key>signingStyle</key>
+    <string>manual</string>
+    <key>provisioningProfiles</key>
+    <dict>
+        <key>com.im.dime</key>
+        <string>Dime App</string>
+        
+        <key>com.im.dime.BudgetIntent</key>
+        <string>BudgetIntent</string>
+        
+        <key>com.im.dime.ExpenditureWidget</key>
+        <string>ExpendentureWidget</string>
+        
+        <key>com.im.dime.BudgetIntentUI</key>
+        <string>BudgetIntentUI</string>
+    </dict>
+    <key>manageAppVersionAndBuildNumber</key>
+    <true/>
+</dict>
+</plist>
