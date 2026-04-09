@@ -47,22 +47,22 @@ jobs:
 
       - name: Build Archive
         run: |
-          xcodebuild -project dime.xcodeproj \
+          xcodebuild -project ./app/dime.xcodeproj \
                      -scheme dime \
                      -configuration Release \
-                     -archivePath ./build/dime.xcarchive \
+                     -archivePath ./app/build/dime.xcarchive \
                      archive
 
       - name: Export IPA
         run: |
           xcodebuild -exportArchive \
-                     -archivePath ./build/dime.xcarchive \
-                     -exportPath ./build/DimeApp \
-                     -exportOptionsPlist ExportOptions.plist \
+                     -archivePath ./app/build/dime.xcarchive \
+                     -exportPath ./app/build/DimeApp \
+                     -exportOptionsPlist ./app/ExportOptions.plist \
                      -allowProvisioningUpdates
 
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
         with:
           name: release-ipa
-          path: build/DimeApp/*.ipa
+          path: ./app/build/DimeApp/*.ipa
