@@ -16,6 +16,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Cache Swift Packages
+        uses: actions/cache@v4
+        with:
+          path: ./app/build
+          # The key uses a hash of your Package.resolved file. 
+          # If dependencies change, the cache will automatically invalidate.
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
       - name: Set up Install Certificates
         # You will need to add your P12 certificate and provisioning profile to GitHub Secrets
         uses: apple-actions/import-codesign-certs@v3
@@ -47,13 +57,17 @@ jobs:
 
       - name: Build Archive
         run: |
+          # Write the API Key to a file so xcodebuild can read it
+          echo "${{ secrets.APPSTORE_PRIVATE_KEY }}" > ./private_key.p8
+          
           xcodebuild -project ./app/dime.xcodeproj \
                      -scheme dime \
                      -configuration Release \
                      -archivePath ./app/build/dime.xcarchive \
-                     CODE_SIGN_STYLE=Manual \
-                     CODE_SIGN_IDENTITY="Apple Distribution" \
-                     PROVISIONING_PROFILE_SPECIFIER="Dime App" \
+                     -allowProvisioningUpdates \
+                     -authenticationKeyID ${{ secrets.APPSTORE_KEY_ID }} \
+                     -authenticationKeyIssuerID ${{ secrets.APPSTORE_ISSUER_ID }} \
+                     -authenticationKeyPath ./private_key.p8 \
                      archive
 
       - name: Export IPA
