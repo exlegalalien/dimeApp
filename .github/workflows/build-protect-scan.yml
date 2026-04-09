@@ -38,10 +38,10 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           
           # Decode each profile into the folder
-          echo "${{ secrets.PROFILE_BASE64 }}" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/app.mobileprovision
-          echo "${{ secrets.PROFILE_INSTENT_BASE64 }}" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/intent.mobileprovision
-          echo "${{ secrets.PROFILE_WIDGET_BASE64 }}" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/widget.mobileprovision
-          echo "${{ secrets.PROFILE_UI_BASE64 }}" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/ui.mobileprovision
+          echo "${{ secrets.PROVISIONING_PROFILE_BASE64 }}" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/app.mobileprovision
+          echo "${{ secrets.PROVISIONING_PROFILE_INTENT_BASE64 }}" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/intent.mobileprovision
+          echo "${{ secrets.PROVISIONING_PROFILE_WIDGET_BASE64 }}" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/widget.mobileprovision
+          echo "${{ secrets.PROVISIONING_PROFILE_UI_BASE64 }}" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/ui.mobileprovision
           
           echo "Successfully installed 4 provisioning profiles."
 

@@ -18,13 +18,13 @@
         <string>Dime App</string>
         
         <key>com.im.dime.BudgetIntent</key>
-        <string>BudgetIntent</string>
+        <string>Dime-BudgetIntent</string>
         
         <key>com.im.dime.ExpenditureWidget</key>
         <string>ExpendentureWidget</string>
         
         <key>com.im.dime.BudgetIntentUI</key>
-        <string>BudgetIntentUI</string>
+        <string>Dime-BudgetUI</string>
     </dict>
     <key>manageAppVersionAndBuildNumber</key>
     <true/>
