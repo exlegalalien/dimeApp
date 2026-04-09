@@ -21,7 +21,7 @@
         <string>Dime-BudgetIntent</string>
         
         <key>com.im.dime.ExpenditureWidget</key>
-        <string>ExpendentureWidget</string>
+        <string>ExpendetureWidget</string>
         
         <key>com.im.dime.BudgetIntentUI</key>
         <string>Dime-BudgetUI</string>
